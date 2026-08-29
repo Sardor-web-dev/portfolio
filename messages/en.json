@@ -241,7 +241,7 @@
     "more": {
       "wms": {
         "type": "Warehouse system",
-        "description": "An internal system for a construction-materials warehouse: items, stock and movement tracked in one place instead of spreadsheets."
+        "description": "Stock accounting for construction materials: receipts from suppliers, issues to site blocks and returns to the warehouse — with prices and the full movement history of every unit. Russian and Uzbek interface."
       },
       "evro-plaza": {
         "type": "Corporate website",

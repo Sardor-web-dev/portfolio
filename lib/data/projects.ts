@@ -115,8 +115,8 @@ export interface IndexEntry {
 export const otherProjects: IndexEntry[] = [
   {
     slug: "wms",
-    name: "WMS",
-    tech: ["Next.js", "TypeScript", "NestJS", "PostgreSQL"],
+    name: "Gagarin Avenue WMS",
+    tech: ["Next.js", "TypeScript", "Prisma", "PostgreSQL"],
   },
   {
     slug: "evro-plaza",
