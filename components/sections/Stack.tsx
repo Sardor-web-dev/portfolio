@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import { Section } from "@/components/ui/Section";
-import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
+import { RevealGroup, RevealItem } from "@/components/motion/Reveal";
+import { TypeLine } from "@/components/motion/TypeLine";
 import { stackGroups } from "@/lib/data/stack";
 
 export function Stack() {
@@ -10,14 +11,14 @@ export function Stack() {
     <Section id="stack" index={t("index")} label={t("label")}>
       <div className="grid grid-cols-12 gap-x-6 gap-y-6">
         <div className="col-span-12 lg:col-span-6">
-          <Reveal>
-            <h3 className="t-h2 max-w-[12ch]">{t("title")}</h3>
-          </Reveal>
+          <h3 className="t-h2 max-w-[12ch]">
+            <TypeLine text={t("title")} />
+          </h3>
         </div>
         <div className="col-span-12 lg:col-span-5 lg:col-start-8 lg:pt-3">
-          <Reveal delay={0.08}>
-            <p className="t-body max-w-[46ch]">{t("note")}</p>
-          </Reveal>
+          <p className="t-body max-w-[46ch]">
+            <TypeLine text={t("note")} delay={0.15} silent />
+          </p>
         </div>
       </div>
 

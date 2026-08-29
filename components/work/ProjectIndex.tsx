@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import { otherProjects } from "@/lib/data/projects";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
+import { TypeLine } from "@/components/motion/TypeLine";
 import { ArrowUpRight } from "@/components/ui/Action";
 
 /**
@@ -22,9 +23,9 @@ export function ProjectIndex() {
           </Reveal>
         </div>
         <div className="col-span-12 md:col-span-8 md:col-start-4 lg:col-span-6">
-          <Reveal>
-            <p className="t-body">{t("moreIntro")}</p>
-          </Reveal>
+          <p className="t-body">
+            <TypeLine text={t("moreIntro")} />
+          </p>
         </div>
       </div>
 

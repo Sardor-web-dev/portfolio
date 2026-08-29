@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import { osonUy } from "@/lib/data/projects";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
+import { TypeLine } from "@/components/motion/TypeLine";
 import { ArrowUpRight } from "@/components/ui/Action";
 import { CaseBlock } from "./CaseBlock";
 import { Shot } from "./Shot";
@@ -47,9 +48,9 @@ export function OsonUyCase() {
         </div>
 
         <div className="col-span-12 lg:col-span-4 lg:col-start-9 lg:pt-2">
-          <Reveal delay={0.14}>
-            <p className="t-body max-w-[44ch]">{p("description")}</p>
-          </Reveal>
+          <p className="t-body max-w-[44ch]">
+            <TypeLine text={p("description")} delay={0.2} />
+          </p>
           {osonUy.href ? (
             <Reveal delay={0.18}>
               <a
@@ -104,11 +105,15 @@ export function OsonUyCase() {
 
       <div className="mt-20 flex flex-col gap-16 md:mt-28 md:gap-20">
         <CaseBlock label={t("problem")}>
-          <p className="t-lead">{p("problem")}</p>
+          <p className="t-lead">
+            <TypeLine text={p("problem")} silent />
+          </p>
         </CaseBlock>
 
         <CaseBlock label={t("solution")}>
-          <p className="t-lead">{p("solution")}</p>
+          <p className="t-lead">
+            <TypeLine text={p("solution")} silent />
+          </p>
         </CaseBlock>
 
         <CaseBlock label={t("built")} wide>
@@ -131,9 +136,9 @@ export function OsonUyCase() {
         </CaseBlock>
 
         <CaseBlock label={t("architecture")} wide>
-          <Reveal>
-            <p className="t-body mb-10 max-w-[56ch]">{p("architectureIntro")}</p>
-          </Reveal>
+          <p className="t-body mb-10 max-w-[56ch]">
+            <TypeLine text={p("architectureIntro")} />
+          </p>
           <Architecture />
         </CaseBlock>
 
@@ -155,9 +160,9 @@ export function OsonUyCase() {
                 hasPhones ? "col-span-12 lg:col-span-6" : "col-span-12 md:col-span-5"
               }
             >
-              <Reveal>
-                <p className="t-body max-w-[48ch]">{p("mobileIntro")}</p>
-              </Reveal>
+              <p className="t-body max-w-[48ch]">
+                <TypeLine text={p("mobileIntro")} />
+              </p>
             </div>
 
             <div
@@ -197,12 +202,12 @@ export function OsonUyCase() {
         </CaseBlock>
 
         <CaseBlock label={t("result")} wide>
-          <Reveal>
-            <p className="t-h3 max-w-[24ch]">{p("resultLead")}</p>
-          </Reveal>
-          <Reveal delay={0.06}>
-            <p className="t-body mt-5 max-w-[52ch]">{p("resultBody")}</p>
-          </Reveal>
+          <p className="t-h3 max-w-[24ch]">
+            <TypeLine text={p("resultLead")} />
+          </p>
+          <p className="t-body mt-5 max-w-[52ch]">
+            <TypeLine text={p("resultBody")} delay={0.3} silent />
+          </p>
 
           <RevealGroup
             className="mt-12 grid grid-cols-1 border-t border-ink-faint sm:grid-cols-3"

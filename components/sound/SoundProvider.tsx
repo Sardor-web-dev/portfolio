@@ -37,8 +37,13 @@ const SoundContext = createContext<SoundApi>({
 });
 
 const STORAGE_KEY = "sound";
-/** Closest two ticks may fall, so a fast scroll can't machine-gun. */
-const MIN_GAP = 0.045;
+/**
+ * Floor between two knocks. Each typed line paces itself at roughly 165 ms, but
+ * several lines can be revealing at once — without a floor those overlap into a
+ * burst. Set just under a single line's own cadence so a line is never thinned,
+ * while two lines together are.
+ */
+const MIN_GAP = 0.09;
 /** Peak of a single tick. */
 const PEAK = 0.3;
 

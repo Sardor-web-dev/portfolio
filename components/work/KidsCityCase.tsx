@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import { kidscity } from "@/lib/data/projects";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
+import { TypeLine } from "@/components/motion/TypeLine";
 import { ArrowUpRight } from "@/components/ui/Action";
 import { Shot } from "./Shot";
 
@@ -38,9 +39,9 @@ export function KidsCityCase() {
         </div>
 
         <div className="col-span-12 lg:col-span-4 lg:col-start-9 lg:pt-2">
-          <Reveal delay={0.14}>
-            <p className="t-body max-w-[44ch]">{p("description")}</p>
-          </Reveal>
+          <p className="t-body max-w-[44ch]">
+            <TypeLine text={p("description")} delay={0.2} />
+          </p>
           {kidscity.href ? (
             <Reveal delay={0.18}>
               <a
@@ -76,9 +77,9 @@ export function KidsCityCase() {
           </Reveal>
         </div>
         <div className="col-span-12 md:col-span-8 md:col-start-4 lg:col-span-6">
-          <Reveal>
-            <p className="t-lead">{p("overview")}</p>
-          </Reveal>
+          <p className="t-lead">
+            <TypeLine text={p("overview")} silent />
+          </p>
         </div>
 
         <div className="col-span-12 md:col-span-3">

@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import { Section } from "@/components/ui/Section";
-import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
+import { RevealGroup, RevealItem } from "@/components/motion/Reveal";
+import { TypeLine } from "@/components/motion/TypeLine";
 import { roles } from "@/lib/data/experience";
 import { ArrowUpRight } from "@/components/ui/Action";
 
@@ -9,9 +10,9 @@ export function Experience() {
 
   return (
     <Section id="experience" index={t("index")} label={t("label")} tone="sunk">
-      <Reveal>
-        <h3 className="t-h2 max-w-[14ch]">{t("title")}</h3>
-      </Reveal>
+      <h3 className="t-h2 max-w-[14ch]">
+        <TypeLine text={t("title")} />
+      </h3>
 
       <ol className="mt-16 md:mt-20">
         {roles.map((role, i) => {
@@ -75,7 +76,9 @@ export function Experience() {
                   {note ? (
                     <p className="t-meta mt-2 text-accent">{note}</p>
                   ) : null}
-                  <p className="t-body mt-4 max-w-[58ch]">{t(`${key}.summary`)}</p>
+                  <p className="t-body mt-4 max-w-[58ch]">
+                    <TypeLine text={t(`${key}.summary`)} silent />
+                  </p>
 
                   {bullets.length > 0 ? (
                     <>

@@ -168,6 +168,19 @@ Ink on warm paper, one accent, hairlines instead of shadows. Everything lives in
 * **Motion vocabulary** — `Reveal`/`RevealGroup` for scroll entrances,
   `TypeLine` for word-by-word text, `Counter` for figures, `Shot` for framed
   images with parallax, `StatementLines` for the serif moments.
+
+  `TypeLine` derives its per-word interval from the word count against a fixed
+  time budget, so a long paragraph still lands in about a second and a half
+  rather than taking six and being scrolled past half-written. It knocks every
+  *n*th word, with *n* chosen to hold the cadence near six a second whatever the
+  interval — ticking every word of a paragraph is a machine gun, not a rhythm.
+  Pass `silent` to reveal without sound.
+
+  `Counter` memoises its parse. A fresh `value.match()` each render is a new
+  array, and an unstable dependency restarts the animation on the very re-render
+  the animation causes: the figure then loops near zero forever instead of
+  arriving. It is also zeroed in a layout effect rather than on view, so the
+  number is never seen to rewind from its final value.
 * **Layout** — the `shell` utility sets the content column; `PageRules` draws
   the two hairlines that run the height of the page along its edges. `Section`
   gives every section the same shape: a numbered label in the left margin,

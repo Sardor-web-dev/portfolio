@@ -1,6 +1,7 @@
 import { useLocale, useTranslations } from "next-intl";
 import { Section } from "@/components/ui/Section";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
+import { TypeLine } from "@/components/motion/TypeLine";
 import { StatementLines } from "@/components/ui/StatementLines";
 import { Action, ArrowUpRight } from "@/components/ui/Action";
 import { site } from "@/lib/data/site";
@@ -32,9 +33,9 @@ export function Contact() {
           <StatementLines lines={[t("title")]} className="max-w-[18ch]" />
         </div>
         <div className="col-span-12 lg:col-span-4 lg:col-start-9 lg:pt-4">
-          <Reveal delay={0.08}>
-            <p className="t-body max-w-[42ch]">{t("body")}</p>
-          </Reveal>
+          <p className="t-body max-w-[42ch]">
+            <TypeLine text={t("body")} delay={0.2} />
+          </p>
         </div>
       </div>
 
@@ -73,7 +74,13 @@ export function Contact() {
 
       <Reveal delay={0.1}>
         <div className="mt-12 flex flex-wrap items-center gap-3">
-          <Action href={`mailto:${site.email}`} arrow>
+          {/* Telegram is the fastest way to reach him; email stays one row above. */}
+          <Action
+            href={site.telegram ?? `mailto:${site.email}`}
+            target={site.telegram ? "_blank" : undefined}
+            rel={site.telegram ? "noreferrer noopener" : undefined}
+            arrow
+          >
             {t("getInTouch")}
           </Action>
           <Action href={resumeHref(locale)} variant="secondary" download>

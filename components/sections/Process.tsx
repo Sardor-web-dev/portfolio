@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { useTranslations } from "next-intl";
 import { motion, useScroll, useSpring, useTransform } from "motion/react";
 import { Section } from "@/components/ui/Section";
-import { Reveal } from "@/components/motion/Reveal";
+import { TypeLine } from "@/components/motion/TypeLine";
 import { StatementLines } from "@/components/ui/StatementLines";
 import { inView } from "@/components/motion/config";
 
@@ -35,9 +35,9 @@ export function Process() {
           <StatementLines lines={[t("statement")]} />
         </div>
         <div className="col-span-12 lg:col-span-5 lg:col-start-8 lg:pt-4">
-          <Reveal delay={0.08}>
-            <p className="t-body max-w-[46ch]">{t("body")}</p>
-          </Reveal>
+          <p className="t-body max-w-[46ch]">
+            <TypeLine text={t("body")} delay={0.2} silent />
+          </p>
         </div>
       </div>
 

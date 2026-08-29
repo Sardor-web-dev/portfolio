@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import { Section } from "@/components/ui/Section";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
+import { TypeLine } from "@/components/motion/TypeLine";
 import { StatementLines } from "@/components/ui/StatementLines";
 import { Shot } from "@/components/work/Shot";
 import { site } from "@/lib/data/site";
@@ -28,12 +29,12 @@ export function Profile() {
           />
         </div>
         <div className="col-span-12 md:col-span-7 md:col-start-6 lg:col-span-7 lg:col-start-6">
-          <Reveal>
-            <p className="t-lead max-w-[38ch]">{t("body1")}</p>
-          </Reveal>
-          <Reveal delay={0.08}>
-            <p className="t-body mt-6 max-w-[46ch]">{t("body2")}</p>
-          </Reveal>
+          <p className="t-lead max-w-[38ch]">
+            <TypeLine text={t("body1")} />
+          </p>
+          <p className="t-body mt-6 max-w-[46ch]">
+            <TypeLine text={t("body2")} delay={0.25} silent />
+          </p>
         </div>
       </div>
 
