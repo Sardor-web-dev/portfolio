@@ -56,8 +56,25 @@ opened cold by people in open-plan offices, and a page that makes noise at a
 stranger costs more than the effect earns. To ship it on instead, change the
 initial `useState(false)` and the stored-value check in `SoundProvider`.
 
-Browsers block audio until the visitor has interacted with the page anyway, so
-even switched on it can never fire before a deliberate click.
+Turning it on plays three ticks straight away, which is both the confirmation
+that it works and the reason the control does not look broken.
+
+Two things make this reliable rather than theoretical:
+
+- `tick` is referentially **stable** (the on/off flag lives in a ref). Scroll
+  reveals schedule their ticks in timers created long before the visitor
+  touches the toggle; if `tick` changed identity, every one of those callbacks
+  would keep calling a stale, permanently-silent copy.
+- On a return visit the preference comes back from storage with no user gesture
+  behind it, and audio cannot start without one. The `AudioContext` is built up
+  front — legal, it simply begins suspended — and resumed on the first pointer,
+  key or touch event. Without that the toggle reads "on" and stays silent for
+  the whole session.
+
+Ticks are spread across the page — the numbered section labels, each layer of
+the Oson Uy architecture as it assembles, the serif statements, the hero line —
+so the effect is audible wherever the visitor happens to switch it on. Roughly
+eighteen over a full read, rate-limited so a fast scroll cannot machine-gun.
 
 ---
 

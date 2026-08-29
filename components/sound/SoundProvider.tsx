@@ -37,11 +37,52 @@ const SoundContext = createContext<SoundApi>({
 });
 
 const STORAGE_KEY = "sound";
+/** Closest two ticks may fall, so a fast scroll can't machine-gun. */
+const MIN_GAP = 0.045;
+/** Peak of a single tick, roughly -20 dBFS: present, but never startling. */
+const PEAK = 0.1;
+
+/** One wooden tick, scheduled `at` seconds on the context clock. */
+function strike(ctx: AudioContext, step: number, at: number) {
+  const base = 880 * Math.pow(2, ((step % 4) * 2) / 12);
+
+  const gain = ctx.createGain();
+  gain.gain.setValueAtTime(0.0001, at);
+  gain.gain.exponentialRampToValueAtTime(PEAK, at + 0.006);
+  gain.gain.exponentialRampToValueAtTime(0.0001, at + 0.13);
+  gain.connect(ctx.destination);
+
+  for (const [ratio, level] of [
+    [1, 1],
+    [2.02, 0.35],
+  ] as const) {
+    const osc = ctx.createOscillator();
+    osc.type = "triangle";
+    osc.frequency.setValueAtTime(base * ratio, at);
+    osc.frequency.exponentialRampToValueAtTime(base * ratio * 0.86, at + 0.12);
+    const partial = ctx.createGain();
+    partial.gain.value = level;
+    osc.connect(partial).connect(gain);
+    osc.start(at);
+    osc.stop(at + 0.14);
+  }
+}
 
 export function SoundProvider({ children }: { children: ReactNode }) {
   const [enabled, setEnabled] = useState(false);
   const ctxRef = useRef<AudioContext | null>(null);
   const lastRef = useRef(0);
+
+  /**
+   * `tick` is read from callbacks that were created before the visitor turned
+   * sound on — a scroll reveal's timer, a running interval. Keeping the flag in
+   * a ref lets `tick` stay referentially stable forever, so none of those
+   * callbacks can capture a stale, permanently-silent copy.
+   */
+  const enabledRef = useRef(false);
+  useEffect(() => {
+    enabledRef.current = enabled;
+  }, [enabled]);
 
   useEffect(() => {
     try {
@@ -58,6 +99,26 @@ export function SoundProvider({ children }: { children: ReactNode }) {
     };
   }, []);
 
+  /**
+   * On a return visit the preference comes back from storage but no gesture has
+   * happened yet, and audio may not start without one. Constructing the context
+   * is always allowed — it simply begins suspended — so it is built up front
+   * and resumed at the first gesture. Without this the toggle reads "on" and
+   * stays silent for the entire session.
+   */
+  useEffect(() => {
+    if (!enabled) return;
+
+    const ctx = (ctxRef.current ??= new AudioContext());
+    void ctx.resume();
+    if (ctx.state === "running") return;
+
+    const events = ["pointerdown", "keydown", "touchstart"] as const;
+    const arm = () => void ctx.resume();
+    events.forEach((e) => window.addEventListener(e, arm, { passive: true }));
+    return () => events.forEach((e) => window.removeEventListener(e, arm));
+  }, [enabled]);
+
   const toggle = useCallback(() => {
     setEnabled((was) => {
       const next = !was;
@@ -66,51 +127,37 @@ export function SoundProvider({ children }: { children: ReactNode }) {
       } catch {
         /* ignore */
       }
+
       if (next) {
         // Created inside the click, which is what satisfies autoplay policy.
-        ctxRef.current ??= new AudioContext();
-        void ctxRef.current.resume();
+        const ctx = (ctxRef.current ??= new AudioContext());
+        void ctx.resume();
+        // Three ticks, straight away: turning it on has to prove it works.
+        const from = ctx.currentTime + 0.04;
+        [0, 1, 2].forEach((i) => strike(ctx, i, from + i * 0.13));
+        lastRef.current = from + 0.26;
       }
+
       return next;
     });
   }, []);
 
-  const tick = useCallback(
-    (step = 0) => {
-      if (!enabled) return;
+  const tick = useCallback((step = 0) => {
+    if (!enabledRef.current) return;
 
-      const ctx = ctxRef.current;
-      if (!ctx || ctx.state !== "running") return;
+    const ctx = ctxRef.current;
+    if (!ctx) return;
+    if (ctx.state === "suspended") {
+      void ctx.resume();
+      return;
+    }
 
-      // Never let a fast run of reveals turn into a machine gun.
-      const now = ctx.currentTime;
-      if (now - lastRef.current < 0.045) return;
-      lastRef.current = now;
+    const now = ctx.currentTime;
+    if (now - lastRef.current < MIN_GAP) return;
+    lastRef.current = now;
 
-      const base = 880 * Math.pow(2, ((step % 4) * 2) / 12);
-      const gain = ctx.createGain();
-      gain.gain.setValueAtTime(0.0001, now);
-      gain.gain.exponentialRampToValueAtTime(0.045, now + 0.006);
-      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.13);
-      gain.connect(ctx.destination);
-
-      for (const [ratio, level] of [
-        [1, 1],
-        [2.02, 0.35],
-      ] as const) {
-        const osc = ctx.createOscillator();
-        osc.type = "triangle";
-        osc.frequency.setValueAtTime(base * ratio, now);
-        osc.frequency.exponentialRampToValueAtTime(base * ratio * 0.86, now + 0.12);
-        const partial = ctx.createGain();
-        partial.gain.value = level;
-        osc.connect(partial).connect(gain);
-        osc.start(now);
-        osc.stop(now + 0.14);
-      }
-    },
-    [enabled],
-  );
+    strike(ctx, step, now);
+  }, []);
 
   const value = useMemo(() => ({ enabled, toggle, tick }), [enabled, toggle, tick]);
 

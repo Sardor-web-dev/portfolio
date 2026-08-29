@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import { motion } from "motion/react";
 import { osonUyArchitecture as arch } from "@/lib/data/projects";
+import { useSound } from "@/components/sound/SoundProvider";
 import { inView } from "@/components/motion/config";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -17,6 +18,7 @@ const EASE = [0.22, 1, 0.36, 1] as const;
  */
 export function Architecture() {
   const t = useTranslations("Work.oson-uy.architecture");
+  const { tick } = useSound();
 
   const fade = (delay: number) => ({
     initial: { opacity: 0, y: 12 },
@@ -36,6 +38,7 @@ export function Architecture() {
           <motion.div
             key={node.id}
             {...fade(0.06 + i * 0.09)}
+            onViewportEnter={() => setTimeout(() => tick(i), (0.06 + i * 0.09) * 1000)}
             className="reveal border-b border-rule-strong px-4 py-4 last:border-b-0 sm:border-b-0 sm:border-r sm:last:border-r-0"
           >
             <p className="t-meta text-ink-faint">{node.tag}</p>
@@ -112,6 +115,7 @@ export function Architecture() {
           <motion.li
             key={node.id}
             {...fade(0.88 + i * 0.1)}
+            onViewportEnter={() => setTimeout(() => tick(i + 3), (0.88 + i * 0.1) * 1000)}
             className="reveal relative"
           >
             <div className="flex flex-col gap-2 border border-rule-strong bg-paper px-4 py-4 sm:flex-row sm:items-baseline sm:gap-6">

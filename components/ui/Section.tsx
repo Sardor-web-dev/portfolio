@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/cn";
 import { Reveal } from "@/components/motion/Reveal";
+import { TickOnView } from "@/components/sound/TickOnView";
 
 interface SectionProps {
   id: string;
@@ -46,6 +47,7 @@ export function Section({
               <h2 id={`${id}-label`} className="t-meta flex items-baseline gap-3">
                 <span className="text-ink-faint tabular-nums">{index}</span>
                 <span className="text-ink">{label}</span>
+                <TickOnView step={Number(index)} />
               </h2>
             </Reveal>
           </div>
