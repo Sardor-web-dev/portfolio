@@ -45,10 +45,21 @@ and points every resume link at the English one.
 
 ## Sound
 
-A few moments tick softly as they land: each line of the large serif statements,
-and each word of the hero's opening line. The tone is synthesised with the Web
-Audio API rather than loaded as a file — no bytes, no request, and the timbre is
-tunable in `components/sound/SoundProvider.tsx`.
+A few moments knock softly as they land. The tone is synthesised with the Web
+Audio API rather than loaded as a file — no bytes, no request, and every
+parameter is tunable in `strike()` in `components/sound/SoundProvider.tsx`.
+
+The character lives in three choices, and getting any of them wrong turns a
+knock into a beep:
+
+- a **plain sine** — harmonic content is what makes a tick sound shrill
+- a **low fundamental** near 300 Hz
+- a **downward glide** to 60% of it over 60 ms, which is what makes it land like
+  a wooden ball settling rather than sound like a note
+
+Envelope is a 3 ms attack and an 80 ms exponential fall, short enough that a run
+reads as a rhythm rather than a chord. Measured on an `OfflineAudioContext`:
+~288 Hz dominant, 0.28 peak, 77 ms audible.
 
 **It is off by default**, behind the equaliser control in the header, and the
 choice is remembered per browser. That default is deliberate: this link gets
@@ -73,8 +84,8 @@ Two things make this reliable rather than theoretical:
 
 Ticks are spread across the page — the numbered section labels, each layer of
 the Oson Uy architecture as it assembles, the serif statements, the hero line —
-so the effect is audible wherever the visitor happens to switch it on. Roughly
-eighteen over a full read, rate-limited so a fast scroll cannot machine-gun.
+so the effect is audible wherever the visitor happens to switch it on. Eighteen
+over a full read, rate-limited so a fast scroll cannot machine-gun.
 
 ---
 

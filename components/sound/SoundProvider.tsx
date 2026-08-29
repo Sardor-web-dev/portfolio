@@ -39,33 +39,38 @@ const SoundContext = createContext<SoundApi>({
 const STORAGE_KEY = "sound";
 /** Closest two ticks may fall, so a fast scroll can't machine-gun. */
 const MIN_GAP = 0.045;
-/** Peak of a single tick, roughly -20 dBFS: present, but never startling. */
-const PEAK = 0.1;
+/** Peak of a single tick. */
+const PEAK = 0.3;
 
-/** One wooden tick, scheduled `at` seconds on the context clock. */
+/**
+ * One low, blunt knock — the "тын" of a wooden ball coming to rest.
+ *
+ * The character is entirely in three choices: a plain sine (any harmonic
+ * content at all reads as a beep), a low fundamental around 300 Hz, and a
+ * downward glide to 60% of it across 60 ms. That glide is what makes it land
+ * like a knock rather than sound like a note. The envelope is a 3 ms attack and
+ * an 80 ms exponential fall, which is short enough that a run of them reads as
+ * a rhythm instead of a chord.
+ *
+ * `step` nudges the pitch up 18 Hz at a time, wrapped so a long page of ticks
+ * cannot creep upward into the register this was written to avoid.
+ */
 function strike(ctx: AudioContext, step: number, at: number) {
-  const base = 880 * Math.pow(2, ((step % 4) * 2) / 12);
+  const freq = 300 + 18 * (step % 6);
 
   const gain = ctx.createGain();
-  gain.gain.setValueAtTime(0.0001, at);
-  gain.gain.exponentialRampToValueAtTime(PEAK, at + 0.006);
-  gain.gain.exponentialRampToValueAtTime(0.0001, at + 0.13);
   gain.connect(ctx.destination);
+  gain.gain.setValueAtTime(0, at);
+  gain.gain.linearRampToValueAtTime(PEAK, at + 0.003);
+  gain.gain.exponentialRampToValueAtTime(0.001, at + 0.08);
 
-  for (const [ratio, level] of [
-    [1, 1],
-    [2.02, 0.35],
-  ] as const) {
-    const osc = ctx.createOscillator();
-    osc.type = "triangle";
-    osc.frequency.setValueAtTime(base * ratio, at);
-    osc.frequency.exponentialRampToValueAtTime(base * ratio * 0.86, at + 0.12);
-    const partial = ctx.createGain();
-    partial.gain.value = level;
-    osc.connect(partial).connect(gain);
-    osc.start(at);
-    osc.stop(at + 0.14);
-  }
+  const osc = ctx.createOscillator();
+  osc.type = "sine";
+  osc.frequency.setValueAtTime(freq, at);
+  osc.frequency.exponentialRampToValueAtTime(freq * 0.6, at + 0.06);
+  osc.connect(gain);
+  osc.start(at);
+  osc.stop(at + 0.09);
 }
 
 export function SoundProvider({ children }: { children: ReactNode }) {
@@ -134,8 +139,8 @@ export function SoundProvider({ children }: { children: ReactNode }) {
         void ctx.resume();
         // Three ticks, straight away: turning it on has to prove it works.
         const from = ctx.currentTime + 0.04;
-        [0, 1, 2].forEach((i) => strike(ctx, i, from + i * 0.13));
-        lastRef.current = from + 0.26;
+        [0, 1, 2].forEach((i) => strike(ctx, i, from + i * 0.15));
+        lastRef.current = from + 0.3;
       }
 
       return next;
