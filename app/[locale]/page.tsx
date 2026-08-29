@@ -1,5 +1,6 @@
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { PageRules } from "@/components/layout/PageRules";
+import { ScrollProgress } from "@/components/layout/ScrollProgress";
 import { SiteHeader } from "@/components/nav/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { LocaleFade } from "@/components/nav/LocaleFade";
@@ -55,6 +56,7 @@ export default async function HomePage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <ScrollProgress />
       <PageRules />
       <SiteHeader />
       <LocaleFade>

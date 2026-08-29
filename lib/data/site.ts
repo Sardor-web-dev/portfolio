@@ -10,24 +10,20 @@ export const site = {
   email: "dzamolovsardor5@gmail.com",
   github: "https://github.com/Sardor-web-dev",
   githubHandle: "github.com/Sardor-web-dev",
-  /**
-   * Not published, because no handle was supplied — nothing here is invented.
-   * Fill both fields in and the Telegram row appears in Contact and the footer
-   * on its own.
-   */
-  telegram: null as string | null,
-  telegramHandle: null as string | null,
+  telegram: "https://t.me/Djamolov_Sardor",
+  telegramHandle: "@Djamolov_Sardor",
+  /** Environmental portrait used in the profile section. */
+  portrait: { src: "/portrait.webp", width: 1181, height: 1476 },
 } as const;
 
 /**
- * Drop the real PDFs at these paths (see public/resume/README.md).
- * English is the primary document. Set `ru` to the Russian file once it
- * exists and the second download link appears on its own; leave it null and
- * every resume link points at the English version.
+ * Both files are generated from this repo's own content by `npm run resume` —
+ * see scripts/resume.mjs. English is the primary document; setting `ru` to null
+ * removes the second download link and points every resume link at English.
  */
 export const resume: { en: string; ru: string | null } = {
   en: "/resume/sardor-djamolov-resume-en.pdf",
-  ru: null,
+  ru: "/resume/sardor-djamolov-resume-ru.pdf",
 };
 
 export const navSections = [

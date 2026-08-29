@@ -1,4 +1,5 @@
 import { cn } from "@/lib/cn";
+import { Counter } from "@/components/motion/Counter";
 
 /**
  * A figure and what it counts. Values are not always numbers — "Web · Mobile ·
@@ -29,7 +30,7 @@ export function Metric({
               : "text-[clamp(1.875rem,3.4vw,2.875rem)] tabular-nums",
           )}
         >
-          {value}
+          <Counter value={value} />
         </p>
       </div>
       <p className="t-meta mt-4 max-w-[24ch] text-ink-muted">{label}</p>

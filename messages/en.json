@@ -16,7 +16,9 @@
     "menu": "Menu",
     "close": "Close",
     "language": "Language",
-    "switchTo": "Switch to Russian"
+    "switchTo": "Switch to Russian",
+    "soundOn": "Turn sound on",
+    "soundOff": "Turn sound off"
   },
   "Hero": {
     "eyebrow": "Full-Stack / Software Engineer",
@@ -59,7 +61,8 @@
         "title": "Deployment",
         "body": "Ship it, keep it running, and keep improving it once real users are inside."
       }
-    }
+    },
+    "portraitAlt": "Sardor Djamolov at his desk, with the flag of Uzbekistan behind him"
   },
   "Experience": {
     "index": "02",

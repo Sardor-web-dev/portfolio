@@ -2,6 +2,8 @@ import { useTranslations } from "next-intl";
 import { Section } from "@/components/ui/Section";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
 import { StatementLines } from "@/components/ui/StatementLines";
+import { Shot } from "@/components/work/Shot";
+import { site } from "@/lib/data/site";
 
 const ARC = ["idea", "architecture", "development", "deployment"] as const;
 
@@ -15,13 +17,24 @@ export function Profile() {
         emphasiseLast
       />
 
-      <div className="mt-14 grid grid-cols-12 gap-x-6 gap-y-6 md:mt-20">
-        <Reveal className="col-span-12 md:col-span-6">
-          <p className="t-lead max-w-[38ch]">{t("body1")}</p>
-        </Reveal>
-        <Reveal className="col-span-12 md:col-span-6 lg:col-span-5" delay={0.08}>
-          <p className="t-body max-w-[46ch]">{t("body2")}</p>
-        </Reveal>
+      <div className="mt-14 grid grid-cols-12 gap-x-6 gap-y-10 md:mt-20">
+        <div className="col-span-12 sm:col-span-8 md:col-span-5 lg:col-span-4">
+          <Shot
+            src={site.portrait.src}
+            width={site.portrait.width}
+            height={site.portrait.height}
+            alt={t("portraitAlt")}
+            sizes="(min-width: 1024px) 22rem, (min-width: 640px) 45vw, 100vw"
+          />
+        </div>
+        <div className="col-span-12 md:col-span-7 md:col-start-6 lg:col-span-7 lg:col-start-6">
+          <Reveal>
+            <p className="t-lead max-w-[38ch]">{t("body1")}</p>
+          </Reveal>
+          <Reveal delay={0.08}>
+            <p className="t-body mt-6 max-w-[46ch]">{t("body2")}</p>
+          </Reveal>
+        </div>
       </div>
 
       {/* Idea -> Architecture -> Development -> Deployment */}

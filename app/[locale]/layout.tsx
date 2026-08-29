@@ -11,6 +11,7 @@ import { routing } from "@/i18n/routing";
 import { site } from "@/lib/data/site";
 import { SmoothScroll } from "@/components/layout/SmoothScroll";
 import { MotionProvider } from "@/components/motion/MotionProvider";
+import { SoundProvider } from "@/components/sound/SoundProvider";
 
 import "../globals.css";
 
@@ -109,8 +110,10 @@ export default async function LocaleLayout({
       <body>
         <NextIntlClientProvider>
           <MotionProvider>
-            <SmoothScroll />
-            {children}
+            <SoundProvider>
+              <SmoothScroll />
+              {children}
+            </SoundProvider>
           </MotionProvider>
         </NextIntlClientProvider>
       </body>

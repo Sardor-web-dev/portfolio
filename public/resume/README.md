@@ -1,10 +1,17 @@
 # Resume PDFs
 
-Drop the real files here, using exactly these names — the buttons already point
-at them and nothing else needs to change:
+**These are generated — don't edit them by hand.**
 
-- `sardor-djamolov-resume-en.pdf`  ← primary, linked everywhere
-- `sardor-djamolov-resume-ru.pdf`  ← optional
+    npm run resume
 
-If there is no Russian version, open `lib/data/site.ts` and set
-`resume.ru` to `null`; the second link disappears from the UI on its own.
+The script (`scripts/resume.mjs`) renders both documents from `messages/*.json`
+and `lib/data/*.ts`, the same content the website is built from, so the resume
+and the page can never drift apart. Change the content, re-run it, re-commit
+the PDFs.
+
+- `sardor-djamolov-resume-en.pdf` — primary
+- `sardor-djamolov-resume-ru.pdf` — set `resume.ru` to `null` in
+  `lib/data/site.ts` to drop it and hide the second download button
+
+To replace them with hand-made files instead, just overwrite them and stop
+running the script; the buttons point at these paths either way.

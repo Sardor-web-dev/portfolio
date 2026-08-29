@@ -1,13 +1,19 @@
 "use client";
 
-import { motion } from "motion/react";
+import { useEffect, useRef } from "react";
+import { motion, useInView } from "motion/react";
 import { cn } from "@/lib/cn";
 import { inView } from "@/components/motion/config";
+import { useSound } from "@/components/sound/SoundProvider";
+
+const LINE_DELAY = 0.09;
 
 /**
- * The site has three of these: large serif statements set as separate lines
- * that rise from behind their own edge as they enter the viewport. Used
- * sparingly, it is the one moment of theatre on the page.
+ * The site's large serif statements: separate lines that rise from behind their
+ * own edge as they enter the viewport, one soft tick as each one lands.
+ *
+ * Used three times in total. Sparing it is what keeps it feeling like a moment
+ * rather than a mannerism.
  */
 export function StatementLines({
   lines,
@@ -19,8 +25,22 @@ export function StatementLines({
   emphasiseLast?: boolean;
   className?: string;
 }) {
+  const ref = useRef<HTMLParagraphElement>(null);
+  const seen = useInView(ref, { once: true, margin: "-8% 0px -12% 0px" });
+  const { tick } = useSound();
+
+  /* One tick per line, timed to when that line finishes rising. */
+  useEffect(() => {
+    if (!seen) return;
+    const timers = lines.map((_, i) =>
+      setTimeout(() => tick(i), (i * LINE_DELAY + 0.42) * 1000),
+    );
+    return () => timers.forEach(clearTimeout);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [seen, lines.length]);
+
   return (
-    <p className={cn("t-statement max-w-[16ch]", className)}>
+    <p ref={ref} className={cn("t-statement max-w-[16ch]", className)}>
       {lines.map((line, i) => {
         const emphasised = emphasiseLast && i === lines.length - 1;
 
@@ -40,7 +60,7 @@ export function StatementLines({
                   y: "0%",
                   transition: {
                     duration: 1,
-                    delay: i * 0.09,
+                    delay: i * LINE_DELAY,
                     ease: [0.22, 1, 0.36, 1],
                   },
                 },

@@ -9,6 +9,7 @@ npm install
 npm run dev        # http://localhost:3000 → redirects to /en
 npm run build && npm run start
 npm run lint && npm run typecheck
+npm run resume     # regenerate both resume PDFs from this repo's content
 ```
 
 Next.js 15 (App Router) · TypeScript · Tailwind CSS v4 · next-intl · Motion · Lenis.
@@ -17,22 +18,46 @@ Next.js 15 (App Router) · TypeScript · Tailwind CSS v4 · next-intl · Motion 
 
 ## Before this goes out
 
-Three things need real files or real values. Everything else is finished.
-
-1. **Resume PDFs** — drop them in `public/resume/` (see the README there).
-   The English file is the primary download; the Russian one is optional and
-   the second button only appears once `resume.ru` in `lib/data/site.ts` points
-   at a file.
-2. **Domain** — `site.url` in `lib/data/site.ts` is `https://sardordjamolov.com`.
+1. **Domain** — `site.url` in `lib/data/site.ts` is `https://sardordjamolov.com`.
    It feeds canonical URLs, `hreflang`, the sitemap, robots and the share card,
    so set it to the real host before deploying.
-3. **Telegram** — `site.telegram` / `site.telegramHandle` are `null` because no
-   handle was supplied. Fill both in and the Telegram row appears in Contact and
-   in the footer automatically. Nothing here is invented.
+2. **Dates** — no role carries one, because none were recorded. A resume without
+   dates is unusual; add `period` to a role in `lib/data/experience.ts` and it
+   appears in the timeline *and* in the PDF. Then re-run `npm run resume`.
 
 Optional: real phone screenshots of the Oson Uy mobile app. `mobileShots` in
 `lib/data/projects.ts` is empty on purpose — no mockups were faked. Add entries
 and the device frames, gallery and captions appear on their own.
+
+## The resume PDFs
+
+`npm run resume` writes `public/resume/*.pdf` from the same messages and data
+the site renders, so the document and the page can never drift apart. Edit the
+content, re-run it, re-commit the PDFs.
+
+It prints through a headless Chrome that is already on the machine — no browser
+download, nothing added to the dependency tree. Set `CHROME_PATH` if yours is
+somewhere unusual, and `KEEP_HTML=1` to leave the intermediate markup in
+`.resume-tmp/` for tweaking the layout in a normal browser.
+
+Setting `resume.ru` to `null` in `lib/data/site.ts` drops the Russian document
+and points every resume link at the English one.
+
+## Sound
+
+A few moments tick softly as they land: each line of the large serif statements,
+and each word of the hero's opening line. The tone is synthesised with the Web
+Audio API rather than loaded as a file — no bytes, no request, and the timbre is
+tunable in `components/sound/SoundProvider.tsx`.
+
+**It is off by default**, behind the equaliser control in the header, and the
+choice is remembered per browser. That default is deliberate: this link gets
+opened cold by people in open-plan offices, and a page that makes noise at a
+stranger costs more than the effect earns. To ship it on instead, change the
+initial `useState(false)` and the stored-value check in `SoundProvider`.
+
+Browsers block audio until the visitor has interacted with the page anyway, so
+even switched on it can never fire before a deliberate click.
 
 ---
 
@@ -56,9 +81,12 @@ components/
 i18n/        next-intl routing, request config, typed navigation
 lib/data/    site, experience, stack, projects — structure only, never prose
 messages/    en.json, ru.json — every visible string
+components/sound/  the tick synth and its header control
+scripts/     resume.mjs — renders the PDFs from the same content as the site
 public/
   projects/  screenshots, one folder per project
-  resume/    PDFs go here
+  resume/    generated PDFs
+  portrait.webp
 ```
 
 ## Content model
@@ -109,6 +137,9 @@ Ink on warm paper, one accent, hairlines instead of shadows. Everything lives in
 * **Type** — `.t-display`, `.t-h2`, `.t-h3`, `.t-statement` (serif),
   `.t-lead`, `.t-body`, `.t-meta` (the mono label used for every piece of
   metadata on the site), `.t-mono`.
+* **Motion vocabulary** — `Reveal`/`RevealGroup` for scroll entrances,
+  `TypeLine` for word-by-word text, `Counter` for figures, `Shot` for framed
+  images with parallax, `StatementLines` for the serif moments.
 * **Layout** — the `shell` utility sets the content column; `PageRules` draws
   the two hairlines that run the height of the page along its edges. `Section`
   gives every section the same shape: a numbered label in the left margin,

@@ -8,6 +8,7 @@ import { resumeHref } from "@/lib/resume";
 import { scrollToId } from "@/lib/scroll";
 import { Action } from "@/components/ui/Action";
 import { Pipeline } from "./Pipeline";
+import { TypeLine } from "@/components/motion/TypeLine";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -114,7 +115,7 @@ export function Hero() {
             <div className="col-span-12 md:col-span-7 lg:col-span-6">
               <FadeUp delay={0.44}>
                 <p className="max-w-[26ch] text-[clamp(1.35rem,2.6vw,2rem)] font-medium leading-[1.16] tracking-[-0.03em] text-ink">
-                  {t("lead")}
+                  <TypeLine text={t("lead")} delay={0.62} step={85} />
                 </p>
               </FadeUp>
             </div>
