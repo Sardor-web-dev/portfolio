@@ -1,0 +1,379 @@
+{
+  "Meta": {
+    "title": "Sardor Djamolov — Full-Stack Software Engineer",
+    "titleTemplate": "%s — Sardor Djamolov",
+    "description": "Sardor Djamolov is a Full-Stack Software Engineer building web and mobile products with TypeScript, React, Next.js, Node.js, NestJS and PostgreSQL.",
+    "ogAlt": "Sardor Djamolov — Full-Stack Software Engineer",
+    "localeLabel": "English"
+  },
+  "Nav": {
+    "skip": "Skip to content",
+    "about": "About",
+    "experience": "Experience",
+    "projects": "Projects",
+    "stack": "Stack",
+    "contact": "Contact",
+    "menu": "Menu",
+    "close": "Close",
+    "language": "Language",
+    "switchTo": "Switch to Russian"
+  },
+  "Hero": {
+    "eyebrow": "Full-Stack / Software Engineer",
+    "lead": "I build web & mobile products from idea to production.",
+    "description": "Full-Stack / Software Engineer focused on building production-ready web and mobile products across frontend, backend, databases and deployment.",
+    "viewProjects": "View projects",
+    "downloadResume": "Download resume",
+    "location": "Samarkand, Uzbekistan",
+    "availability": "Open to remote international opportunities",
+    "pipelineLabel": "How the work moves",
+    "pipeline": {
+      "idea": "Idea",
+      "product": "Product",
+      "code": "Code",
+      "deployment": "Deployment"
+    }
+  },
+  "Profile": {
+    "index": "01",
+    "label": "Profile",
+    "statementLine1": "I don’t just build interfaces.",
+    "statementLine2": "I build products.",
+    "body1": "Over the past three years I’ve worked across frontend architecture, backend APIs, databases, mobile applications, authentication, admin dashboards and deployment.",
+    "body2": "That range is the point. I can take a business requirement and carry it the whole way — deciding how the data is modelled, what the API has to expose, what the interface needs to do, and how the result gets deployed and kept running. Most of what I’ve shipped runs in production for real businesses.",
+    "arcLabel": "End to end",
+    "arc": {
+      "idea": {
+        "title": "Idea",
+        "body": "Understand the business problem and what the product actually has to do before any code exists."
+      },
+      "architecture": {
+        "title": "Architecture",
+        "body": "Model the data, shape the API surface, and decide how each client talks to the core."
+      },
+      "development": {
+        "title": "Development",
+        "body": "Build the web app, the API and the mobile client against one shared source of truth."
+      },
+      "deployment": {
+        "title": "Deployment",
+        "body": "Ship it, keep it running, and keep improving it once real users are inside."
+      }
+    }
+  },
+  "Experience": {
+    "index": "02",
+    "label": "Experience",
+    "title": "Where I’ve worked",
+    "responsibilities": "Responsibilities",
+    "roles": {
+      "sds": {
+        "role": "Founder / Full-Stack Developer",
+        "location": "Remote · Uzbekistan / United Kingdom",
+        "summary": "Independent software development studio focused on web, mobile and business software.",
+        "bullets": [
+          "Full-stack application development",
+          "Web architecture",
+          "Mobile development",
+          "REST API design",
+          "Database architecture",
+          "Authentication",
+          "Admin dashboards",
+          "Deployment",
+          "Product architecture",
+          "Working directly with business requirements"
+        ]
+      },
+      "dotlabs": {
+        "role": "Software Developer",
+        "location": "Remote · Uzbekistan",
+        "summary": "Commercial web application development on React, Next.js and TypeScript.",
+        "bullets": [
+          "Developed production web applications",
+          "React / Next.js / TypeScript",
+          "Responsive UI",
+          "REST API integration",
+          "Server-side functionality",
+          "Git / GitHub workflows",
+          "Commercial software development",
+          "Turning business requirements into technical solutions"
+        ]
+      },
+      "ozon": {
+        "role": "Frontend Developer",
+        "location": "Russia",
+        "note": "Intern → Junior Frontend Developer",
+        "summary": "Frontend work on production web interfaces inside a large-scale technology company.",
+        "bullets": [
+          "Production web interfaces",
+          "Reusable frontend components",
+          "JavaScript-based frontend development",
+          "Backend API integration",
+          "Bug fixing",
+          "Feature development",
+          "Git",
+          "Code reviews",
+          "Professional engineering workflows"
+        ]
+      }
+    }
+  },
+  "Work": {
+    "index": "03",
+    "label": "Selected work",
+    "title": "Products I’ve shipped",
+    "intro": "Two case studies in depth, then everything else as an index. Each of these runs in production.",
+    "caseStudy": "Case study",
+    "visitSite": "Visit site",
+    "role": "Role",
+    "roleValue": "Design, frontend, backend, database, deployment",
+    "stackLabel": "Stack",
+    "problem": "The problem",
+    "solution": "The solution",
+    "built": "What I built",
+    "architecture": "Architecture",
+    "mobile": "Mobile",
+    "result": "Result",
+    "features": "Features",
+    "overview": "Overview",
+    "moreLabel": "Also shipped",
+    "moreIntro": "Other production work, kept short on purpose.",
+    "tableProject": "Project",
+    "tableType": "Type",
+    "tableStack": "Stack",
+    "oson-uy": {
+      "eyebrow": "Featured project",
+      "subtitle": "Real Estate Technology Platform",
+      "description": "A digital platform designed to connect buyers with new residential developments across Uzbekistan.",
+      "problem": "Buying into a new residential development means working across a dozen developer websites, Instagram pages and phone calls. Prices, floor plans, completion dates and developer credentials all live in different places and different formats, so nothing is genuinely comparable. Buyers needed a simpler way to discover, compare and understand what is actually being built.",
+      "solution": "Oson Uy brings residential projects, apartments, pricing, floor plans and developer information into one platform. A web application for buyers, a mobile application, and an admin dashboard the catalogue is maintained from — all three reading from the same PostgreSQL database, so what a developer updates is what a buyer sees.",
+      "built": [
+        "Customer-facing web application",
+        "Backend REST API",
+        "PostgreSQL database design",
+        "Admin dashboard",
+        "Cross-platform mobile application",
+        "Authentication",
+        "Project catalogue",
+        "Advanced filtering",
+        "Apartment information",
+        "Floor plans",
+        "Pricing",
+        "Ratings",
+        "Reviews",
+        "Verified developers",
+        "Project QR codes",
+        "Maps",
+        "Video content",
+        "Instagram content",
+        "3D building models"
+      ],
+      "architectureIntro": "Three clients, one core. The web app, the mobile app and the admin dashboard all speak to the same NestJS API, which owns the data through Prisma.",
+      "architecture": {
+        "clientsLabel": "Clients",
+        "coreLabel": "Core",
+        "nodes": {
+          "web": "Buyer-facing catalogue, filtering and project pages.",
+          "mobile": "The same catalogue, built for phones with Expo.",
+          "admin": "Where developers, projects and apartments are maintained.",
+          "api": "REST endpoints, authentication and business rules.",
+          "orm": "Typed schema and migrations between the API and the database.",
+          "db": "Single source of truth for every client."
+        }
+      },
+      "mobileIntro": "A cross-platform mobile application built with React Native and Expo, running on the same API and the same database as the web platform — one catalogue, not a second copy of it.",
+      "mobilePoints": [
+        "Shared REST API with the web application",
+        "Project catalogue and filtering on phones",
+        "Built once for iOS and Android with Expo"
+      ],
+      "resultLead": "Live, in production, and still being built on.",
+      "resultBody": "The platform, the mobile app and the admin dashboard run as one system rather than three separate projects.",
+      "metrics": [
+        {
+          "value": "39+",
+          "label": "Residential projects on the platform"
+        },
+        {
+          "value": "3",
+          "label": "Clients on one shared API"
+        },
+        {
+          "value": "1",
+          "label": "Shared database behind every client"
+        }
+      ],
+      "captions": {
+        "storefront": "The buyer-facing storefront: search by region, district, price per m² and area.",
+        "dashboard": "The admin dashboard: catalogue and enquiry management. Personal data is redacted."
+      },
+      "alt": {
+        "storefront": "Oson Uy home page with a residential property search form over a photograph of Samarkand at night",
+        "dashboard": "Oson Uy admin dashboard showing summary figures and recent enquiries"
+      }
+    },
+    "kidscity": {
+      "eyebrow": "Featured project",
+      "subtitle": "E-commerce Platform",
+      "description": "A complete e-commerce platform built with Next.js, PostgreSQL and modern full-stack technologies.",
+      "overview": "An online store for children’s clothing: catalogue and product pages, cart and favourites, a customer account and a multilingual interface — with an admin side for managing products, media and content.",
+      "features": [
+        "Product catalogue",
+        "Authentication",
+        "Admin functionality",
+        "Database architecture",
+        "Media management",
+        "Internationalization",
+        "Responsive UI",
+        "Production deployment"
+      ],
+      "captions": {
+        "storefront": "The storefront: catalogue, cart, favourites and a customer account."
+      },
+      "alt": {
+        "storefront": "KidsCity.uz storefront showing the site header and three feature cards"
+      }
+    },
+    "more": {
+      "wms": {
+        "type": "Warehouse system",
+        "description": "An internal system for a construction-materials warehouse: items, stock and movement tracked in one place instead of spreadsheets."
+      },
+      "evro-plaza": {
+        "type": "Corporate website",
+        "description": "The website of a property development company: the company and its residential projects."
+      },
+      "samyak": {
+        "type": "Commercial website"
+      },
+      "tespack": {
+        "type": "Commercial website"
+      },
+      "pishcool": {
+        "type": "Education website",
+        "description": "The website of Polyglot International School."
+      }
+    }
+  },
+  "Stack": {
+    "index": "04",
+    "label": "Stack",
+    "title": "What I build with",
+    "note": "Grouped by layer rather than listed as a wall of logos. The tools at the top of each group are the ones the projects above actually run on.",
+    "groups": {
+      "languages": "Languages",
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "databases": "Databases",
+      "mobile": "Mobile",
+      "devops": "DevOps & tooling"
+    }
+  },
+  "Process": {
+    "index": "05",
+    "label": "How I work",
+    "statement": "From idea to production.",
+    "body": "I enjoy working across the full product lifecycle — from understanding a business problem to designing the architecture, implementing the product and deploying it. The steps below are not a methodology I read about; they are the order things actually happen in when a product has to ship.",
+    "steps": [
+      {
+        "title": "Understand",
+        "body": "What is the business problem, and who has it?"
+      },
+      {
+        "title": "Design",
+        "body": "What does the product need to do, and what does it not need to do?"
+      },
+      {
+        "title": "Architect",
+        "body": "Data model, API surface, and how the clients share one core."
+      },
+      {
+        "title": "Build",
+        "body": "Frontend, backend and mobile against that shared contract."
+      },
+      {
+        "title": "Test",
+        "body": "Real data, real devices, real edge cases before anyone else sees it."
+      },
+      {
+        "title": "Deploy",
+        "body": "Get it into production, with the environment and pipeline set up properly."
+      },
+      {
+        "title": "Improve",
+        "body": "Watch how it is used and keep changing it. Shipping is the start."
+      }
+    ]
+  },
+  "Numbers": {
+    "index": "06",
+    "label": "In numbers",
+    "items": [
+      {
+        "value": "3+",
+        "label": "Years of hands-on development"
+      },
+      {
+        "value": "39+",
+        "label": "Residential projects on Oson Uy"
+      },
+      {
+        "value": "Web · Mobile · Backend",
+        "label": "Full product development"
+      },
+      {
+        "value": "International",
+        "label": "Remote collaboration"
+      }
+    ]
+  },
+  "Background": {
+    "index": "07",
+    "label": "Background",
+    "languagesTitle": "Languages",
+    "languages": [
+      {
+        "name": "Russian",
+        "level": "Fluent"
+      },
+      {
+        "name": "Uzbek",
+        "level": "Fluent"
+      },
+      {
+        "name": "Tajik",
+        "level": "Fluent"
+      },
+      {
+        "name": "English",
+        "level": "B2 · Upper-Intermediate"
+      },
+      {
+        "name": "German",
+        "level": "B1"
+      }
+    ],
+    "educationTitle": "Education",
+    "educationBody": "Completing secondary school in 2026, with university planned for 2027. Everything above was built alongside it."
+  },
+  "Contact": {
+    "index": "08",
+    "label": "Contact",
+    "title": "Let’s build something useful.",
+    "body": "I’m open to remote international opportunities, software engineering roles and interesting product collaborations.",
+    "emailLabel": "Email",
+    "githubLabel": "GitHub",
+    "telegramLabel": "Telegram",
+    "locationLabel": "Based in",
+    "getInTouch": "Get in touch",
+    "downloadResume": "Download resume",
+    "resumeEn": "Resume — EN",
+    "resumeRu": "Resume — RU"
+  },
+  "Footer": {
+    "role": "Full-Stack / Software Engineer",
+    "rights": "© {year} Sardor Djamolov",
+    "backToTop": "Back to top",
+    "colophon": "Built with Next.js, TypeScript and Tailwind CSS."
+  }
+}
