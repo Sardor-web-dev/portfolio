@@ -30,6 +30,8 @@ export const stackGroups: StackGroup[] = [
     items: [
       "Node.js",
       "NestJS",
+      "FastAPI",
+      "Django",
       "REST API",
       "Prisma",
       "Authentication",

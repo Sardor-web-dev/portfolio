@@ -81,9 +81,10 @@ renders name, type and stack, which is the honest presentation when there is
 nothing verified to say.
 
 **Adding a role:** add it to `roles` in `lib/data/experience.ts` and a
-`Experience.roles.<id>` block in both message files. Roles carry an optional
-`period` — none are set, because no dates were supplied; add one and it renders
-in the timeline rail.
+`Experience.roles.<id>` block in both message files. `period`, `location` and
+`bullets` are all optional — no dates are set because none were supplied, and
+the Wepro teaching role carries only a title and a summary for the same reason.
+Add any of the three to a role's message block and it renders on its own.
 
 ## Internationalisation
 

@@ -16,7 +16,13 @@ export function Experience() {
       <ol className="mt-16 md:mt-20">
         {roles.map((role, i) => {
           const key = `roles.${role.id}` as const;
-          const bullets = t.raw(`${key}.bullets`) as string[];
+          /* Not every role carries a location or a list of duties. One that
+             doesn't renders as company, title and summary rather than being
+             padded out to match the others. */
+          const bullets = t.has(`${key}.bullets`)
+            ? (t.raw(`${key}.bullets`) as string[])
+            : [];
+          const location = t.has(`${key}.location`) ? t(`${key}.location`) : null;
           const note = t.has(`${key}.note`) ? t(`${key}.note`) : null;
 
           return (
@@ -50,9 +56,9 @@ export function Experience() {
                           role.company
                         )}
                       </h4>
-                      <p className="t-meta mt-3 text-ink-muted">
-                        {t(`${key}.location`)}
-                      </p>
+                      {location ? (
+                        <p className="t-meta mt-3 text-ink-muted">{location}</p>
+                      ) : null}
                       {role.period ? (
                         <p className="t-meta mt-1.5 text-ink-faint tabular-nums">
                           {role.period}
@@ -71,20 +77,27 @@ export function Experience() {
                   ) : null}
                   <p className="t-body mt-4 max-w-[58ch]">{t(`${key}.summary`)}</p>
 
-                  <p className="t-meta mt-9 text-ink-faint">
-                    {t("responsibilities")}
-                  </p>
-                  <ul className="mt-4 grid grid-cols-1 gap-x-8 sm:grid-cols-2">
-                    {bullets.map((bullet) => (
-                      <li
-                        key={bullet}
-                        className="flex gap-3 border-b border-rule py-2.5 text-[0.9375rem] leading-[1.45] tracking-[-0.008em] text-ink-soft last:border-b-0 sm:last:border-b sm:[&:nth-last-child(-n+1)]:border-b-0"
-                      >
-                        <span aria-hidden className="mt-[0.7em] h-px w-2.5 shrink-0 bg-ink-faint" />
-                        <span>{bullet}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  {bullets.length > 0 ? (
+                    <>
+                      <p className="t-meta mt-9 text-ink-faint">
+                        {t("responsibilities")}
+                      </p>
+                      <ul className="mt-4 grid grid-cols-1 gap-x-8 sm:grid-cols-2">
+                        {bullets.map((bullet) => (
+                          <li
+                            key={bullet}
+                            className="flex gap-3 border-b border-rule py-2.5 text-[0.9375rem] leading-[1.45] tracking-[-0.008em] text-ink-soft last:border-b-0 sm:last:border-b sm:[&:nth-last-child(-n+1)]:border-b-0"
+                          >
+                            <span
+                              aria-hidden
+                              className="mt-[0.7em] h-px w-2.5 shrink-0 bg-ink-faint"
+                            />
+                            <span>{bullet}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </>
+                  ) : null}
                 </RevealItem>
               </RevealGroup>
             </li>

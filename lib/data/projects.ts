@@ -121,6 +121,8 @@ export const otherProjects: IndexEntry[] = [
   {
     slug: "evro-plaza",
     name: "EVRO PLAZA",
+    href: "https://evroplaza.uz",
+    domain: "evroplaza.uz",
     tech: ["Next.js", "TypeScript", "Tailwind CSS"],
   },
   {
@@ -138,10 +140,10 @@ export const otherProjects: IndexEntry[] = [
     tech: ["Next.js", "TypeScript", "Tailwind CSS"],
   },
   {
-    slug: "pishcool",
-    name: "Pishcool",
-    href: "https://pishcool.uz",
-    domain: "pishcool.uz",
+    slug: "pischool",
+    name: "Pischool",
+    href: "https://pischool.uz",
+    domain: "pischool.uz",
     tech: ["Next.js", "TypeScript", "Tailwind CSS"],
   },
 ];

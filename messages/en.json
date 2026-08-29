@@ -84,6 +84,10 @@
           "Working directly with business requirements"
         ]
       },
+      "wepro": {
+        "role": "Python Development Instructor",
+        "summary": "Teaching Python development on Wepro's programming course."
+      },
       "dotlabs": {
         "role": "Software Developer",
         "location": "Remote · Uzbekistan",
@@ -191,16 +195,16 @@
       "resultBody": "The platform, the mobile app and the admin dashboard run as one system rather than three separate projects.",
       "metrics": [
         {
-          "value": "39+",
+          "value": "45+",
           "label": "Residential projects on the platform"
         },
         {
-          "value": "3",
-          "label": "Clients on one shared API"
+          "value": "50+",
+          "label": "Clients on the platform"
         },
         {
-          "value": "1",
-          "label": "Shared database behind every client"
+          "value": "3",
+          "label": "Applications on one shared API"
         }
       ],
       "captions": {
@@ -249,7 +253,7 @@
       "tespack": {
         "type": "Commercial website"
       },
-      "pishcool": {
+      "pischool": {
         "type": "Education website",
         "description": "The website of Polyglot International School."
       }
@@ -314,7 +318,7 @@
         "label": "Years of hands-on development"
       },
       {
-        "value": "39+",
+        "value": "45+",
         "label": "Residential projects on Oson Uy"
       },
       {
