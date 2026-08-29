@@ -16,9 +16,7 @@
     "menu": "Menu",
     "close": "Close",
     "language": "Language",
-    "switchTo": "Switch to Russian",
-    "soundOn": "Turn sound on",
-    "soundOff": "Turn sound off"
+    "switchTo": "Switch to Russian"
   },
   "Hero": {
     "eyebrow": "Full-Stack / Software Engineer",

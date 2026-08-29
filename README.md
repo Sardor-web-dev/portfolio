@@ -61,150 +61,36 @@ Envelope is a 3 ms attack and an 80 ms exponential fall, short enough that a run
 reads as a rhythm rather than a chord. Measured on an `OfflineAudioContext`:
 ~288 Hz dominant, 0.28 peak, 77 ms audible.
 
-**It is off by default**, behind the equaliser control in the header, and the
-choice is remembered per browser. That default is deliberate: this link gets
-opened cold by people in open-plan offices, and a page that makes noise at a
-stranger costs more than the effect earns. To ship it on instead, change the
-initial `useState(false)` and the stored-value check in `SoundProvider`.
+Knocks are spread across the page — the numbered section labels, each layer of
+the Oson Uy architecture as it assembles, the serif statements, and every typed
+line — and rate-limited so overlapping reveals cannot burst. Measured over a
+full read: 66 knocks, peak 9 a second, median gap 116 ms.
 
-Turning it on plays three ticks straight away, which is both the confirmation
-that it works and the reason the control does not look broken.
+### On by default, and what that actually means
 
-Two things make this reliable rather than theoretical:
+There is no control to turn sound off, and it is on for every visitor.
 
-- `tick` is referentially **stable** (the on/off flag lives in a ref). Scroll
-  reveals schedule their ticks in timers created long before the visitor
-  touches the toggle; if `tick` changed identity, every one of those callbacks
-  would keep calling a stale, permanently-silent copy.
-- On a return visit the preference comes back from storage with no user gesture
-  behind it, and audio cannot start without one. The `AudioContext` is built up
-  front — legal, it simply begins suspended — and resumed on the first pointer,
-  key or touch event. Without that the toggle reads "on" and stays silent for
-  the whole session.
+**No code can make it play the instant the page opens.** Browsers refuse audio
+until the visitor has genuinely interacted, and a wheel-scroll does not count as
+interaction in Chrome. The `AudioContext` is therefore constructed immediately —
+legal, it simply begins suspended — and resumed on the first pointer, key or
+touch event, so the first real interaction switches it on for the rest of the
+visit. `wheel` and `scroll` are listened for as well: they will not grant
+permission on their own, but they cost nothing and do work for a visitor the
+browser already trusts with this origin.
 
-Ticks are spread across the page — the numbered section labels, each layer of
-the Oson Uy architecture as it assembles, the serif statements, the hero line —
-so the effect is audible wherever the visitor happens to switch it on. Eighteen
-over a full read, rate-limited so a fast scroll cannot machine-gun.
+In practice: on a phone, the first touch-scroll arms it. On a desktop, a visitor
+who only ever spins the wheel and never clicks will hear nothing — that is the
+browser's rule, not this code's.
 
----
+Two consequences worth being deliberate about:
 
-## Layout of the code
-
-```
-app/
-  [locale]/layout.tsx   document shell, fonts, per-locale metadata
-  [locale]/page.tsx     section order + Person JSON-LD
-  globals.css           the whole design system: tokens, type scale, motion rules
-  opengraph-image.tsx   1200×630 share card, drawn in the site's own type
-  sitemap.ts robots.ts icon.svg
-components/
-  layout/    page rules, smooth scroll, footer
-  nav/       header, mobile sheet, locale switch, locale transition
-  hero/      hero + the idea→deployment diagram
-  sections/  profile, experience, work, stack, process, numbers, background, contact
-  work/      case studies, screenshot frames, architecture figure, project index
-  motion/    reveal primitives, shared easing, MotionConfig provider
-  ui/        Section, Action, Metric, StatementLines
-i18n/        next-intl routing, request config, typed navigation
-lib/data/    site, experience, stack, projects — structure only, never prose
-messages/    en.json, ru.json — every visible string
-components/sound/  the tick synth and its header control
-scripts/     resume.mjs — renders the PDFs from the same content as the site
-public/
-  projects/  screenshots, one folder per project
-  resume/    generated PDFs
-  portrait.webp
-```
-
-## Content model
-
-Structure and prose are deliberately separate.
-
-* `lib/data/*` holds facts and assets: slugs, URLs, image dimensions, tech lists,
-  the order of things. No sentences.
-* `messages/{en,ru}.json` holds every visible string, including project copy,
-  captions and image alt text. Both files have the same 160-odd keys.
-
-Lists whose length may change — responsibilities, features, "what I built",
-process steps — are read with `t.raw()`, so a translator can add or remove a
-line without touching a component.
-
-**Adding a project to the index:** add a row to `otherProjects` in
-`lib/data/projects.ts`, then a `Work.more.<slug>` entry with `type` (and
-optionally `description`) in both message files. A row with no description
-renders name, type and stack, which is the honest presentation when there is
-nothing verified to say.
-
-**Adding a role:** add it to `roles` in `lib/data/experience.ts` and a
-`Experience.roles.<id>` block in both message files. `period`, `location` and
-`bullets` are all optional — no dates are set because none were supplied, and
-the Wepro teaching role carries only a title and a summary for the same reason.
-Add any of the three to a role's message block and it renders on its own.
-
-## Internationalisation
-
-`/en` and `/ru`, always prefixed, no automatic detection — an American reader
-who lands on the root gets English. Locale switching uses
-`router.replace(pathname, { locale })` so the reader keeps their scroll position,
-and the page gets a short fade *only* when arriving from the switch, so a first
-visit never pays for the transition (`components/nav/LocaleFade.tsx`).
-
-The name stays in Latin in both locales: it is how it appears on GitHub, in the
-email address and on the resume.
-
-## Design system
-
-Ink on warm paper, one accent, hairlines instead of shadows. Everything lives in
-`app/globals.css`:
-
-* **Colour** — `--color-ink*` for text, `--color-paper*` for surfaces,
-  `--color-accent` (`#0f6b58`) for interaction and one emphasised line,
-  `--color-rule*` for hairlines. Every text colour clears WCAG AA (4.5:1) on
-  both the paper and the sunken band; anything lighter is a rule, never text.
-* **Type** — `.t-display`, `.t-h2`, `.t-h3`, `.t-statement` (serif),
-  `.t-lead`, `.t-body`, `.t-meta` (the mono label used for every piece of
-  metadata on the site), `.t-mono`.
-* **Motion vocabulary** — `Reveal`/`RevealGroup` for scroll entrances,
-  `TypeLine` for word-by-word text, `Counter` for figures, `Shot` for framed
-  images with parallax, `StatementLines` for the serif moments.
-
-  `TypeLine` derives its per-word interval from the word count against a fixed
-  time budget, so a long paragraph still lands in about a second and a half
-  rather than taking six and being scrolled past half-written. It knocks every
-  *n*th word, with *n* chosen to hold the cadence near six a second whatever the
-  interval — ticking every word of a paragraph is a machine gun, not a rhythm.
-  Pass `silent` to reveal without sound.
-
-  `Counter` memoises its parse. A fresh `value.match()` each render is a new
-  array, and an unstable dependency restarts the animation on the very re-render
-  the animation causes: the figure then loops near zero forever instead of
-  arriving. It is also zeroed in a layout effect rather than on view, so the
-  number is never seen to rewind from its final value.
-* **Layout** — the `shell` utility sets the content column; `PageRules` draws
-  the two hairlines that run the height of the page along its edges. `Section`
-  gives every section the same shape: a numbered label in the left margin,
-  content in the columns beside it.
-
-## Motion
-
-One easing curve (`components/motion/config.ts`) for everything, so the page
-reads as one system: reveals rise 18px and fade once on entry, screenshots
-settle from 0.985 and drift a few percent against the scroll, the architecture
-figure assembles in the order it is explained in, and the process rail fills
-with the reader's own position. Lenis smooths the scroll itself.
-
-**Reduced motion is handled in CSS, not JavaScript.** Every animated element
-carries `.reveal`, and the `prefers-reduced-motion` block in `globals.css`
-forces those elements to `opacity: 1; transform: none`. That is correct in the
-first painted frame, needs no hydration, and cannot leave content stranded at
-opacity 0 — which is exactly what happens if you branch on `useReducedMotion()`
-during render. `MotionConfig reducedMotion="user"` stops the animation layer
-from running transform animations at all.
-
-Measured on the production build: CLS 0, FCP under 100 ms, LCP ~1.4 s (the hero
-name is the LCP element and is masked until its reveal, which is the one place
-the entrance animation costs anything).
+- **The hero line is silent on a first visit.** It finishes typing about a
+  second and a half after load, before anyone has clicked. Every later reveal
+  knocks normally.
+- **A visitor cannot mute the page.** They can mute the browser tab, but the
+  site offers nothing. To give them a control back, restore `SoundToggle` from
+  version history and gate `tick` on its state.
 
 ## Deploying
 

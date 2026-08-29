@@ -7,7 +7,6 @@ import { navSections, site } from "@/lib/data/site";
 import { scrollToId } from "@/lib/scroll";
 import { cn } from "@/lib/cn";
 import { LocaleSwitch } from "./LocaleSwitch";
-import { SoundToggle } from "@/components/sound/SoundToggle";
 
 const SECTION_IDS = navSections.map((s) => s.id);
 
@@ -130,8 +129,7 @@ export function SiteHeader() {
               })}
             </nav>
 
-            <div className="flex items-center gap-2 sm:gap-3">
-              <SoundToggle />
+            <div className="flex items-center gap-3">
               <LocaleSwitch />
               <button
                 type="button"
