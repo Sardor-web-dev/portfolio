@@ -19,5 +19,4 @@ export const roles: Role[] = [
   { id: "sds", company: "Sardor & Danila Systems" },
   { id: "wepro", company: "Wepro.uz", href: "https://wepro.uz" },
   { id: "dotlabs", company: "Dotlabs.uz" },
-  { id: "ozon", company: "Ozon" },
 ];

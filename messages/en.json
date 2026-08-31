@@ -103,23 +103,6 @@
           "Commercial software development",
           "Turning business requirements into technical solutions"
         ]
-      },
-      "ozon": {
-        "role": "Frontend Developer",
-        "location": "Russia",
-        "note": "Intern → Junior Frontend Developer",
-        "summary": "Frontend work on production web interfaces inside a large-scale technology company.",
-        "bullets": [
-          "Production web interfaces",
-          "Reusable frontend components",
-          "JavaScript-based frontend development",
-          "Backend API integration",
-          "Bug fixing",
-          "Feature development",
-          "Git",
-          "Code reviews",
-          "Professional engineering workflows"
-        ]
       }
     }
   },
